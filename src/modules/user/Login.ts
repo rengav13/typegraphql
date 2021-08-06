@@ -24,6 +24,10 @@ export class LoginResolver {
             return undefined;
         }
 
+        if (!user.confirmed) {
+            return undefined;
+        }
+
         // @ts-ignore
         ctx.req.session!.userId = user.id;
 

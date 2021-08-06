@@ -3,6 +3,8 @@ import { Arg, Mutation, Query, Resolver, UseMiddleware } from "type-graphql";
 import { User } from "../../entity/User";
 import { isAuth } from "../middleware/isAuth";
 import { logger } from "../middleware/logger";
+import { createConfirmationUrl } from "../util/createConfirmationUrl";
+import { sendEmail } from "../util/sendEmail";
 import { RegisterInput } from "./register/RegisterInput";
 
 @Resolver()
@@ -31,6 +33,8 @@ export class RegisterResolver {
             email,
             password: hashedPassword
         }).save();
+
+        sendEmail(user.email, await createConfirmationUrl(user.id));
 
         return user;
     }
