@@ -1,1 +1,1 @@
-# typegraphql
+# typegraphql tutorial
