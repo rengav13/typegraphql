@@ -6,21 +6,12 @@ import session from "express-session";
 import "reflect-metadata";
 import { buildSchema } from "type-graphql";
 import { createConnection } from "typeorm";
-import { ConfirmUserResolver } from "./modules/user/ConfirmUser";
-import { LoginResolver } from "./modules/user/Login";
-import { MeResolver } from "./modules/user/Me";
-import { RegisterResolver } from "./modules/user/Register";
 import { redis } from "./redis";
 
 const main = async () => {
     await createConnection();
     const schema = await buildSchema({
-        resolvers: [
-            MeResolver,
-            RegisterResolver,
-            LoginResolver,
-            ConfirmUserResolver
-        ],
+        resolvers: [__dirname + "/modules/**/*.ts"],
         authChecker: ({ context: { req } }) => {
             return !!req.session.userId;
         }
