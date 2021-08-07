@@ -1,8 +1,10 @@
-import { IsEmail, Length, Min } from "class-validator";
+import { IsEmail, Length } from "class-validator";
 import { Field, InputType } from "type-graphql";
+import { OkMixin } from "../../../modules/shared/OkInput";
+import { PasswordMixin } from "../../shared/PasswordInput";
 
 @InputType()
-export class RegisterInput {
+export class RegisterInput extends OkMixin(PasswordMixin(class { })) {
     @Field()
     @Length(1, 255)
     firstName: string;
@@ -14,8 +16,4 @@ export class RegisterInput {
     @Field()
     @IsEmail()
     email: string;
-
-    @Field()
-    @Min(5)
-    password: string;
 }

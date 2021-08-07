@@ -1,17 +1,9 @@
-import { Min } from "class-validator";
 import { Field, InputType } from "type-graphql";
+import { PasswordMixin } from "../../shared/PasswordInput";
 
 @InputType()
-export class ChangePasswordInput {
+export class ChangePasswordInput extends PasswordMixin(class { }) {
 
     @Field()
     token: string;
-
-    @Field()
-    @Min(5)
-    oldPassword: string;
-
-    @Field()
-    @Min(5)
-    newPassword: string;
 }
