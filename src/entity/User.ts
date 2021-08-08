@@ -22,7 +22,7 @@ export class User extends BaseEntity {
     @IsEmailAlreadyExist()
     email: string;
 
-    @Field()
+    @Field({ complexity: 3 })
     name(@Root() parent: User): string {
         return `${parent.firstName} ${parent.lastName}`;
     }
