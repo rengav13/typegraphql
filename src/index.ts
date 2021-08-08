@@ -8,9 +8,12 @@ import queryComplexity, {
     simpleEstimator
 } from "graphql-query-complexity";
 import "reflect-metadata";
-import { createConnection } from "typeorm";
+import { Container } from 'typeorm-typedi-extensions';
+import { createConnection, useContainer } from "typeorm";
 import { redis } from "./redis";
 import { createSchema } from "./utils/createSchema";
+
+useContainer(Container);
 
 const main = async () => {
     await createConnection();
